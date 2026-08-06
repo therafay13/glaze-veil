@@ -1,19 +1,21 @@
 #requires -Version 5.1
-# Restores the pre-change GlazeWM/Zebar configs from the dated backup folder.
+# Restores GlazeWM/Zebar configs from a dated backup under <repo>\backups\
 param(
-  [string]$BackupDir = (Get-ChildItem 'F:\AI\Cursor\GlazeVM_Zebar\backups' -Directory |
-    Where-Object { $_.Name -match '^\d{8}-\d{6}$' } |
-    Sort-Object Name -Descending |
-    Select-Object -First 1 -ExpandProperty FullName)
+  [string]$BackupDir = (
+    Get-ChildItem (Join-Path $PSScriptRoot '..\backups') -Directory -ErrorAction SilentlyContinue |
+      Where-Object { $_.Name -match '^\d{8}-\d{6}$' } |
+      Sort-Object Name -Descending |
+      Select-Object -First 1 -ExpandProperty FullName
+  )
 )
 
 $ErrorActionPreference = 'Stop'
 if (-not $BackupDir -or -not (Test-Path $BackupDir)) {
-  throw "Backup folder not found"
+  throw "Backup folder not found. Pass -BackupDir explicitly."
 }
 
 Write-Host "Restoring from $BackupDir"
-& 'F:\AI\Cursor\GlazeVM_Zebar\scripts\Stop-DesktopHelper.ps1'
+& (Join-Path $PSScriptRoot 'Stop-DesktopHelper.ps1')
 
 $utf8 = New-Object System.Text.UTF8Encoding $false
 $cfg = Get-Content (Join-Path $BackupDir 'glazewm\config.yaml') -Raw
