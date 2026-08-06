@@ -1,0 +1,29 @@
+# Logs and runtime
+logs/
+*.log
+STOP_DESKTOP_HELPER
+scripts/STOP_DESKTOP_HELPER
+
+# Local machine backups / personal snapshots (do not publish)
+backups/
+
+# Cached extracted app icons (user-generated)
+**/icons/dynamic/*.png
+!**/icons/dynamic/.gitkeep
+
+# Secrets / local env
+.env
+.env.*
+*.pat
+*credentials*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# Temp
+_probe*.py
+*.tmp

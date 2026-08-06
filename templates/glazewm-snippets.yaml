@@ -1,0 +1,35 @@
+# Sample snippets for GlazeWM `~/.glzr/glazewm/config.yaml`
+#
+# Replace GLAZE_VEIL_ROOT with the absolute path to your glaze-veil clone
+# (Install-GlazeVeil.ps1 prints these lines filled in for you).
+#
+# Save this file as UTF-8 WITHOUT BOM.
+
+general:
+  startup_commands:
+    - 'shell-exec zebar'
+    - 'shell-exec powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File GLAZE_VEIL_ROOT\scripts\Start-DesktopHelper.ps1'
+
+  shutdown_commands:
+    - 'shell-exec powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File GLAZE_VEIL_ROOT\scripts\Stop-DesktopHelper.ps1'
+    - 'shell-exec taskkill /IM zebar.exe /F'
+
+  config_reload_commands:
+    - 'shell-exec powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File GLAZE_VEIL_ROOT\scripts\Start-DesktopHelper.ps1'
+
+gaps:
+  scale_with_dpi: true
+  # Tuned for Attaquer ~26px bar on a laptop
+  inner_gap: '10px'
+  outer_gap:
+    top: '36px'
+    right: '10px'
+    bottom: '10px'
+    left: '10px'
+
+# Add under your existing ignore rules:
+# window_rules:
+#   - commands: ['ignore']
+#     match:
+#       - window_process: { equals: 'zebar' }
+#       - window_title: { equals: 'GlzrWallpaperOverlay' }
